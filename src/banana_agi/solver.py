@@ -273,9 +273,9 @@ Training examples ({len(train_examples)} pairs):
 Test input (generate the output for this):
 
 Rules:
-1. Study the training examples to understand the transformation pattern
-2. Apply the same pattern to the test input
-3. Respond ONLY with the image of the output, with correct colors. To generate it, just start from the test input image and modify according to the transformation pattern.
+1. Study each training example in depth to understand the transformation pattern. It can be symetries, translations, rotations, any of these can be affected by the shapes in presence as if they were physical objects.
+2. Write a 5-line summary of what the transformation pattern is : the basis of it, caveats, any other observations.
+3. Apply the same pattern to the test input to generate the output. Respond ONLY with the image of the output, with correct colors. To generate it, just start from the test input image and modify according to the transformation pattern.
 
 Output grid:"""
 
@@ -292,6 +292,8 @@ Output grid:"""
             response = self.client.models.generate_content(
                 model="gemini-2.5-flash-image-preview", contents=content_parts
             )
+            if hasattr(response, "text"):
+                print(response.text)
 
             predicted_grid = None
             output_image = None
