@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gemini Chat</h1>
+            <button id="newChatBtn" class="new-chat-btn">New Chat</button>
+        </header>
+        
+        <div class="chat-container">
+            <div id="chatMessages" class="chat-messages"></div>
+            
+            <div class="input-container">
+                <div class="image-preview" id="imagePreview" style="display: none;">
+                    <img id="previewImage" alt="Preview">
+                    <button id="removeImage" class="remove-image">×</button>
+                </div>
+                
+                <div class="input-wrapper">
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    <button id="imageUploadBtn" class="image-btn" title="Upload Image">📎</button>
+                    <textarea id="messageInput" placeholder="Type your message... (Shift+Enter for new line)" rows="1" autofocus></textarea>
+                    <button id="sendBtn" class="send-btn" title="Send Message">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingIndicator" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <span>Thinking...</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
