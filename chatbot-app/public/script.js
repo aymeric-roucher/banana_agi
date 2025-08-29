@@ -291,27 +291,70 @@ class GeminiChatApp {
             cursor: pointer;
         `;
 
+        // Create close button
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '×';
+        closeButton.style.cssText = `
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+            transition: background-color 0.2s;
+        `;
+        
+        // Close button hover effect
+        closeButton.addEventListener('mouseenter', () => {
+            closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+        });
+        
+        closeButton.addEventListener('mouseleave', () => {
+            closeButton.style.background = 'rgba(0, 0, 0, 0.7)';
+        });
+
         const img = document.createElement('img');
         img.src = src;
         img.style.cssText = `
             max-width: 90%;
             max-height: 90%;
             border-radius: 8px;
+            cursor: default;
         `;
 
+        // Prevent img click from closing modal
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        modal.appendChild(closeButton);
         modal.appendChild(img);
         document.body.appendChild(modal);
 
-        // Close modal when clicked
-        modal.addEventListener('click', () => {
+        const closeModal = () => {
             document.body.removeChild(modal);
-        });
+            document.removeEventListener('keydown', handleEscape);
+        };
+
+        // Close modal when background is clicked
+        modal.addEventListener('click', closeModal);
+
+        // Close modal when X button is clicked
+        closeButton.addEventListener('click', closeModal);
 
         // Close modal with Escape key
         const handleEscape = (e) => {
             if (e.key === 'Escape') {
-                document.body.removeChild(modal);
-                document.removeEventListener('keydown', handleEscape);
+                closeModal();
             }
         };
         document.addEventListener('keydown', handleEscape);
